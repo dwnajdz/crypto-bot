@@ -4,6 +4,7 @@ from datetime import datetime
 
 stock_symbol = str(input('Please type stock symbol (CRYPTO-CURRENCY, ADA-USD, BTC-USD): '))
 budget = int(input('Please type budget ($USD): ')) 
+myWallet = Wallet(budget)
 
 class Wallet():
     def __init__(self, user_budget):
@@ -44,8 +45,8 @@ class Wallet():
             #buying_price+0.5 because we want actually to earn some money
             if buying_price+0.5 < price:
                 self.active_money += price*amount
-                self.earnings += (self.active_money)-(buying_price*amount)
-                print(f'Selled_key: {key}, Price: {buying_price*amount}, Current: {self.active_money}, Selled amount: {amount}')
+                self.earnings += (buying_price*amount)-(price*amount)
+                print(f'Selled_key: {key}, Price: {buying_price*amount}, Earnings: {self.earnings}, Selled amount: {amount}')
                 self.portfolio.pop(key)
                 
         return
@@ -60,7 +61,6 @@ def mean() -> any:
 
 month_mean = mean()
 print(f'Last month mean price: {month_mean}')
-myWallet = Wallet(budget)
 
 while True:
     current_price = realtime()['Close'][-1]
